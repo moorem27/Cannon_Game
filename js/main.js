@@ -7,9 +7,9 @@
     var center_y = (offset.top) + (box.height() / 2);
 
     function mousemoved(event) {
-        var mouse_x = event.pageX;
-        var mouse_y = event.pageY;
-        var radians = Math.atan2(mouse_x - center_x, mouse_y - center_y);
+        var event_x = event.pageX;
+        var event_y = event.pageY;
+        var radians = Math.atan2(event_x - center_x, event_y - center_y);
         var degree = (radians * (180 / Math.PI) * -1) + 90;
 
         box.css('-moz-transform', 'rotate(' + degree + 'deg)');
@@ -33,4 +33,5 @@
     // });
 
     $(document).mousemove(mousemoved);
+    $(document).taphold(mousemoved);
 })(jQuery); // End of use strict
