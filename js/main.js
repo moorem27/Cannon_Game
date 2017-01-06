@@ -32,6 +32,5 @@
     //     $(document).unbind();
     // });
 
-    $(document).mousemove(mousemoved);
-    $(document).taphold(mousemoved);
+    $( document ).on( "vmousemove", mousemoved );
 })(jQuery); // End of use strict
