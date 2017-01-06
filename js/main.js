@@ -17,10 +17,10 @@
         box.css('-o-transform', 'rotate(' + degree + 'deg)');
         box.css('-ms-transform', 'rotate(' + degree + 'deg)');
 
-        var pageCoords = "( " + event.pageX + ", " + event.pageY + " )";
-        var clientCoords = "( " + event.clientX + ", " + event.clientY + " )";
-        $('#coords').text("( event.pageX, event.pageY ) : " + pageCoords +
-            "( event.clientX, event.clientY ) : " + clientCoords);
+        var pageCoords = event.pageX + ", " + event.pageY;
+        var clientCoords = event.clientX + ", " + event.clientY;
+        $('#coords').text("( pageX, pageY ) : " + pageCoords +
+            " ( clientX, clientY ) : " + clientCoords);
     }
 
     // only moves the box when the mouse is held down
