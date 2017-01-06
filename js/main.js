@@ -33,4 +33,5 @@
     // });
 
     $( document ).on( "vmousemove", mousemoved );
+    $.mobile.loading().hide();
 })(jQuery); // End of use strict
