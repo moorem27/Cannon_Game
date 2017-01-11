@@ -5,6 +5,24 @@
 
 A game where you shoot a canon and enjoy the ensuing chaos.
 
+## How to Build Project
+
+install the packages needed to build project (Ubuntu 16.04)
+```
+sudo apt-get update
+sudo apt-get install nodejs
+sudo apt-get install npm
+sudo apt-get install ruby-dev
+sudo npm install -g gulp
+```
+build project
+```
+cd <project directory>
+npm install
+gulp dev
+```
+
+
 ## Authors
 - Matt Moore
 - Brandon Soto
