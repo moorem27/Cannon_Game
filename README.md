@@ -7,9 +7,8 @@ A game where you shoot a canon and enjoy the ensuing chaos.
 
 ## How to Build Project
 
-install the packages needed to build project (Ubuntu 16.04)
 ```
-// install necessary packages
+// install necessary packages (Ubuntu 16.04)
 sudo apt-get update
 sudo apt-get install nodejs
 sudo apt-get install npm
