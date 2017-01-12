@@ -12,14 +12,10 @@
 
     <!-- CDN stylesheets -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+    <!--<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />-->
+    <link rel="stylesheet" href="assets/css/main.css" />
 
-    <!-- CDN scripts -->
-    <script src="https://d3tvtfb6518e3e.cloudfront.net/3/opbeat.min.js" data-org-id="95d8368be1004651828aabbeb4b4ef00" data-app-id="a311d580c4">
-    </script>
 
-    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
-    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 
     <!--[if lt IE 9]>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
@@ -28,11 +24,29 @@
 </head>
 
 <body>
-    <div id="test-body">
-        <div class="center-block" id="box" style="width: 200px; height: 200px; background-color: darkred; margin-top: 100px; margin-bottom:100px;"></div>
-        <div class="container-fluid" id="coords" style="background-color: lightblue; font-size: 12px; color: black;"></div>
+    <div id='main-container'>
+        <div class="container">
+            <div class="center-block cannon"></div>
+            <!-- TODO: insert cannon bottom if we want one -->
+        </div>
+        <div class="container text-center">
+            <button id='fire' type='button' class='btn'>FIRE!</button>
+        </div>
+        <div class="alert alert-info"><strong>Click and hold the mouse down to move the cannon.</strong></div>
+        <div class="container text-center" id="coords">No coordinate data</div>
     </div>
+
+    <!-- CDN scripts -->
+    <script src="https://d3tvtfb6518e3e.cloudfront.net/3/opbeat.min.js" data-org-id="95d8368be1004651828aabbeb4b4ef00" data-app-id="a311d580c4">
+    </script>
+
+
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
     <script src="assets/js/main.js"></script>
 </body>
+
 
 </html>
