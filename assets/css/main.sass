@@ -1,0 +1,44 @@
+$fire-color: darkred
+$fire-hover-color: orangered
+
+.cannon-ball
+  position: absolute
+  border-radius: 50%
+  background-color: black
+  width: 100px
+  height: 100px
+
+.cannon
+  background-color: darkslategray
+  border-right: 10px orange solid
+  border-radius: 50% 0 0 50%
+  cursor: default
+  width: 300px
+  height: 200px
+  margin-top: 200px
+  margin-bottom: 100px
+
+#coords
+  background-color: lightblue
+  font-size: 12px
+  color: black
+
+#fire
+  background-color: $fire-color
+  color: white
+  font-size: 24px
+  border-radius: 100%
+  width: 100px
+  height: 100px
+  cursor: pointer
+  transition: all 200ms ease-in-out
+  &:hover,
+  &:active
+    background-color: $fire-hover-color
+    transform: scale(1.1)
+    font-size: 28px
+  &:active
+    color: white
+    background-color: $fire-color
+    transform: translateY(5px)
+
