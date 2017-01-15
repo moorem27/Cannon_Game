@@ -19,6 +19,15 @@ $(function () {
         main_container.remove('.cannon-ball');
     }
 
+    function get_mouse_coordinates(event) {
+        var canvas = document.getElementById("main-container");
+        var rectangle = canvas.getBoundingClientRect();
+        return {
+            x: event.clientX - rectangle.left,
+            y: event.clientY - rectangle.top
+        };
+    }
+
     function mousemoved(event) {
         var cannon_offset = cannon.offset();
         var center_x = (cannon_offset.left) + (cannon.width() / 2);
@@ -26,8 +35,8 @@ $(function () {
 
         var event_x = event.pageX;
         var event_y = event.pageY;
-        var radians = Math.atan2(event_x - center_x, event_y - center_y);
-        var degree = (radians * (180 / Math.PI) * -1) + 90;
+        var radians = Math.atan2( event_y - center_y, event_x - center_x);
+        var degree = (radians * (180 / Math.PI));
 
         cannon.css('-moz-transform', 'rotate(' + degree + 'deg)');
         cannon.css('-webkit-transform', 'rotate(' + degree + 'deg)');
