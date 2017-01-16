@@ -1,22 +1,36 @@
 $fire-color: darkred
 $fire-hover-color: orangered
 
+body,
+html
+  height: 100%
+  width: 100%
+  overflow: hidden
+  cursor: default
+
+  &::selection
+    cursor: default
+
 .cannon-ball
   position: absolute
   border-radius: 50%
   background-color: black
   width: 100px
   height: 100px
+  z-index: 1
 
 .cannon
   background-color: darkslategray
   border-right: 10px orange solid
+  border-left: 10px red solid
   border-radius: 50% 0 0 50%
   cursor: default
+  position: absolute
   width: 300px
   height: 200px
   margin-top: 200px
   margin-bottom: 100px
+  z-index: 2
 
 #coords
   background-color: lightblue
