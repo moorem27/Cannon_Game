@@ -10,48 +10,35 @@ $(function () {
                         'left': '0px',
                         'top': canvas.scrollHeight + 300 + 'px'});
 
-    var mouse_up    = 0;    // For logging
     var center_x    = 0;
     var center_y    = 0;
-    var v_0         = 10;   // arbitrary initial velocity
+    var v_0         = 150;  // arbitrary initial velocity
     var theta       = 100;  // radians
     var degrees     = 0;
     var gravity     = 9.81;
 
-
-    function get_updated_coordinates(start_x, start_y, percent) {
-        var v_x0 = v_0 * Math.cos(theta);
-        var v_y0 = v_0 * Math.sin(theta);
-        start_x = (v_x0*percent);
-        start_y = ((v_y0*time) - (.5*gravity*(time*time)));
-
-        return( {new_x:start_x, new_y:start_y} );
-    }
-
-    //TODO: Fix jquery animation call and use fire_event instead of global theta
+    //TODO: Bugs....bugs everywhere. Fix glitchy animation (Matt).
     function fire_cannon(fire_event) {
         main_container.append('<div class="cannon-ball"></div>');
         var time = 0;
         var cannon_ball = $('.cannon-ball');
+        var v_x0 = v_0 * Math.cos(theta*-1); //Should theta have to be negated here?
+        var v_y0 = v_0 * Math.sin(theta*-1); //Or here?
 
-        var x = Math.cos(theta*-1) * 300;
-        var y = 1150 - Math.sin(theta*-1)*(300);
-        var v_x0 = v_0 * Math.cos(theta*-1);
-        var v_y0 = v_0 * Math.sin(theta*-1);
-
-        cannon_ball.offset({top: y, left: x});
-        cannon_ball.css({"left":"0"}).animate({"left":(v_x0*time), "top":(((v_y0*time)) -
-        (.5*gravity*(time*time)))}, {duration:500,
-            step: function(now){
-            time = time + .15;
-            console.log((v_x0*time) + ' ' + (((v_y0*time)) -
-                (.5*gravity*(time*time))));
-            if(cannon_ball.position().left > canvas.scrollWidth ||
-                        cannon_ball.position().top > canvas.scrollHeight ) {
-                       cannon_ball.clearQueue();
-                   }
-        }});
-        cannon_ball.fadeOut(2000);
+        // cannon_ball.offset({top: cannon_y, left: cannon_x});
+        cannon_ball.css({ fontSize: 0 }).animate({
+            fontSize: 45
+        },{
+            duration: 5000,
+            easing: "swing",
+            step: function(t, fx){
+                time = time + .10;
+                var x = (v_x0*time)
+                var y = (((v_y0*time)) - (.5*gravity*(time*time)) );
+                console.log(x + ' ' + y);
+                $(this).css({ left: x, top: 1000 - y });
+            }
+        });
         cannon_ball.clearQueue();
         main_container.remove('.cannon-ball');
     }
