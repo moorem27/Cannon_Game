@@ -8,47 +8,51 @@ $(function () {
     // Reposition cannon to bottom left of screen (there must be a better way?)
     cannon.css({'position': 'absolute',
                         'left': '0px',
-                        'top': canvas.scrollHeight + 'px'});
+                        'top': canvas.scrollHeight + 300 + 'px'});
 
-    var mouse_up    = 0;
+    var mouse_up    = 0;    // For logging
     var center_x    = 0;
     var center_y    = 0;
     var v_0         = 10;   // arbitrary initial velocity
-    var theta       = 0;    // radians
+    var theta       = 100;  // radians
     var degrees     = 0;
     var gravity     = 9.81;
 
 
+    function get_updated_coordinates(start_x, start_y, percent) {
+        var v_x0 = v_0 * Math.cos(theta);
+        var v_y0 = v_0 * Math.sin(theta);
+        start_x = (v_x0*percent);
+        start_y = ((v_y0*time) - (.5*gravity*(time*time)));
 
+        return( {new_x:start_x, new_y:start_y} );
+    }
+
+    //TODO: Fix jquery animation call and use fire_event instead of global theta
     function fire_cannon(fire_event) {
         main_container.append('<div class="cannon-ball"></div>');
         var time = 0;
         var cannon_ball = $('.cannon-ball');
 
-        var x = Math.cos(theta) * 300;
-        var y = 900 - Math.sin(theta)*(300);
-        var v_x0 = v_0 * Math.cos(theta);
-        var v_y0 = v_0 * Math.sin(theta);
+        var x = Math.cos(theta*-1) * 300;
+        var y = 1150 - Math.sin(theta*-1)*(300);
+        var v_x0 = v_0 * Math.cos(theta*-1);
+        var v_y0 = v_0 * Math.sin(theta*-1);
 
-        cannon_ball.fadeIn(200);
         cannon_ball.offset({top: y, left: x});
-        cannon_ball.animate({'left': ((v_x0*time)),
-            'top':((v_y0*time) - (.5*gravity*(time*time)))},
-            {duration: 1000,
-           step: function(now){
-               time = time + .15;
-               console.log(degrees*-1);
-               if(cannon_ball.position().left > canvas.scrollWidth ||
-                    cannon_ball.position().top > canvas.scrollHeight ) {
-                   // cannon_ball.removeAttr('style');
-                   cannon_ball.clearQueue();
-                   // cannon_ball.removeAttribute(this.constructor);
-               }
-           }
-        });
+        cannon_ball.css({"left":"0"}).animate({"left":(v_x0*time), "top":(((v_y0*time)) -
+        (.5*gravity*(time*time)))}, {duration:500,
+            step: function(now){
+            time = time + .15;
+            console.log((v_x0*time) + ' ' + (((v_y0*time)) -
+                (.5*gravity*(time*time))));
+            if(cannon_ball.position().left > canvas.scrollWidth ||
+                        cannon_ball.position().top > canvas.scrollHeight ) {
+                       cannon_ball.clearQueue();
+                   }
+        }});
         cannon_ball.fadeOut(2000);
-
-
+        cannon_ball.clearQueue();
         main_container.remove('.cannon-ball');
     }
 
