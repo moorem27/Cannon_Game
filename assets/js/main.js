@@ -4,12 +4,15 @@ $(function () {
     var main_container = $('#main-container');
     var cannon = $('.cannon');
 
+    // FIXME: should only show elements after loading is finished
+
     // set cannon's starting position and pivot point
     cannon.css({'transform-origin': 'left'});
     cannon.css({'transform' : 'rotate(-45deg)'});
     cannon.css({'position': 'absolute',
                         'left': '0',
                         'top': ($(window).height() - cannon.width())});
+    cannon.show();
 
     var center_x    = 0;
     var center_y    = 0;
