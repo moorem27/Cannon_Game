@@ -25,7 +25,6 @@ $(function () {
         var v_x0 = v_0 * Math.cos(theta*-1); //Should theta have to be negated here?
         var v_y0 = v_0 * Math.sin(theta*-1); //Or here?
 
-        // cannon_ball.offset({top: cannon_y, left: cannon_x});
         cannon_ball.css({ fontSize: 0 }).animate({
             fontSize: 45
         },{
@@ -42,23 +41,6 @@ $(function () {
         cannon_ball.clearQueue();   // This needs to be called somewhere else to clear the animation queue
                                     // (Maybe detect ball collision with edge of screen, then clear queue?
         main_container.remove('.cannon-ball');
-    }
-
-    function get_mouse_coordinates(event) {
-        var canvas = document.getElementById("main-container");
-        var rectangle = canvas.getBoundingClientRect();
-        return {
-            x: event.clientX - rectangle.left,
-            y: event.clientY - rectangle.top
-        };
-    }
-
-    // theta should be in radians
-    function calculate_velocities(radians) {
-        return {
-            v_x0: v_0*Math.cos(radians),
-            v_y0: v_0*Math.sin(radians)
-        };
     }
 
     // returns theta in radians
