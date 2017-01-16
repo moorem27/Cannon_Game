@@ -6,9 +6,12 @@ var bootlint     = require('gulp-bootlint');
 var sourcemaps   = require('gulp-sourcemaps');
 var sassLint     = require('gulp-sass-lint');
 var eslint       = require('gulp-eslint');
-var pkg          = require('./package.json');
 
-gulp.task( 'bootlint', ['sass'], function() {
+/**
+ * Run bootlint on the project's main html file.
+ * @dependency sass - ensures index.html is using most up-to-date css data
+ */
+gulp.task('bootlint', ['sass'], function() {
     return gulp.src('index.html')
         .pipe(bootlint({
             stoponerror: true
@@ -16,30 +19,31 @@ gulp.task( 'bootlint', ['sass'], function() {
 });
 
 /**
- * Compile files from _scss into both _site/css (for live injecting) and site (for future jekyll builds)
+ * Runs the sass compiler on the main sass file.
+ * @dependency sass-lint - runs the linter on the sass file before compiling
  */
-gulp.task('sass', ['sass-lint'], function () {
+gulp.task('sass', ['sass-lint'], function() {
     return gulp.src('assets/css/main.sass')
         .pipe(sourcemaps.init())
         .pipe(sass().on('error', sass.logError))
         .pipe(sourcemaps.write())
         .pipe(autoprefixer())
         .pipe(gulp.dest('assets/css/'))
-        .pipe(browserSync.reload({stream:true}));
+        .pipe(browserSync.reload({ stream: true }));
 });
 
 /**
- * Watch scss files for changes & recompile
- * Watch html/md files, run jekyll & reload BrowserSync
+ * Watch changes to sass/css, javascript, and html files.
  */
-gulp.task('watch', function () {
+gulp.task('watch', function() {
     gulp.watch('assets/css/**', ['sass-lint', 'sass']);
     gulp.watch('assets/js/**', ['js-lint', browserSync.reload]);
-    gulp.watch('index.html', ['bootlint', browserSync.reload] );
+    gulp.watch('index.html', ['bootlint', browserSync.reload]);
 });
 
-
-// Configure the browserSync task
+/**
+ * Runs the browser sync task on the project.
+ */
 gulp.task('browser-sync', function() {
     browserSync.init({
         server: {
@@ -48,19 +52,26 @@ gulp.task('browser-sync', function() {
     })
 });
 
+/**
+ * Runs the sass linter on all of the sass files.
+ */
 gulp.task('sass-lint', function() {
     return gulp.src('assets/css/**/*.sass')
-        .pipe( sassLint({
+        .pipe(sassLint({
             files: {
                 ignore: 'assets/vendor/**/*.sass'
             }
-        }) )
+        }))
         .pipe(sassLint.failOnError());
 });
 
+/**
+ * Runs the sass linter on all of the sass files and reports all
+ * warnings and errors to standard output.
+ */
 gulp.task('sass-lint-verbose', function() {
     return gulp.src('assets/css/**/*.sass')
-        .pipe( sassLint({
+        .pipe(sassLint({
             options: {
                 formatter: 'compact',
                 'max-warnings': 50
@@ -68,11 +79,15 @@ gulp.task('sass-lint-verbose', function() {
             files: {
                 ignore: 'assets/vendor/**/*.sass'
             }
-        }) )
+        }))
         .pipe(sassLint.format())
         .pipe(sassLint.failOnError());
 });
 
+/**
+ * Runs eslint on all of the javascript files and prints warnings and errors
+ * to standard output.
+ */
 gulp.task('js-lint', function() {
     return gulp.src(['assets/js/**/*.js', '!node_modules/**'])
         .pipe(eslint('.eslintrc'))
@@ -80,6 +95,8 @@ gulp.task('js-lint', function() {
         .pipe(eslint.failOnError());
 });
 
+// default build task
 gulp.task('default', ['sass-lint', 'sass', 'bootlint', 'js-lint']);
-gulp.task('dev', ['sass-lint', 'sass', 'bootlint', 'js-lint', 'browser-sync', 'watch']);
 
+// development task
+gulp.task('dev', ['sass-lint', 'sass', 'bootlint', 'js-lint', 'browser-sync', 'watch']);
