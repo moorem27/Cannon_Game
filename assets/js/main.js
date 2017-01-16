@@ -3,12 +3,13 @@ $(function () {
 
     var main_container = $('#main-container');
     var cannon = $('.cannon');
-    var canvas = document.getElementById('main-container');
 
-    // Reposition cannon to bottom left of screen (there must be a better way?)
+    // set cannon's starting position and pivot point
+    cannon.css({'transform-origin': 'left'});
+    cannon.css({'transform' : 'rotate(-45deg)'});
     cannon.css({'position': 'absolute',
-                        'left': '0px',
-                        'top': canvas.scrollHeight + 300 + 'px'});
+                        'left': '0',
+                        'top': ($(window).height() - cannon.width())});
 
     var center_x    = 0;
     var center_y    = 0;
