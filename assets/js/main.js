@@ -54,10 +54,7 @@ $(function () {
     }
 
     function rotate_cannon(degrees) {
-        cannon.css('-moz-transform', 'rotate(' + degrees + 'deg)');
-        cannon.css('-webkit-transform', 'rotate(' + degrees + 'deg)');
-        cannon.css('-o-transform', 'rotate(' + degrees + 'deg)');
-        cannon.css('-ms-transform', 'rotate(' + degrees + 'deg)');
+        cannon.css({'transform' : 'rotate(' + degrees + 'deg)'});
     }
 
 
