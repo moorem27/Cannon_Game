@@ -1,5 +1,8 @@
 ## Jetbrains ##
-.idea
+.idea/
+
+## Visual Studio ##
+.vscode/
 
 ## local jquery ##
 jquery-*
