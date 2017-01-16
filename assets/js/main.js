@@ -32,7 +32,7 @@ $(function () {
             easing: "swing",
             step: function(t, fx){
                 time = time + .10;
-                var x = (v_x0*time)
+                var x = (v_x0*time);
                 var y = (((v_y0*time)) - (.5*gravity*(time*time)) );
                 console.log(x + ' ' + y);
                 $(this).css({ left: x, top: 1000 - y });
@@ -77,6 +77,16 @@ $(function () {
         $(document).unbind();
     });
 
+
+    // disables scrolling by arrow keys
+    // TODO: comment this section out when debugging cannon balls
+    // TODO: also comment out body & html sections in main.sass (lines 4-9)
+    window.addEventListener("keydown", function(e) {
+        //  space, page up, page down and arrow keys:
+        if([32, 33, 34, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
+            e.preventDefault();
+        }
+    }, false);
 
     document.addEventListener('mouseup', fire_cannon );
     $.mobile.loading().hide();
