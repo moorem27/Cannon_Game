@@ -1,7 +1,7 @@
 $(function () {
     'use strict'; // Start of use strict
-    var main_container = $('#main-container');
 
+    var main_container = $('#main-container');
     var cannon = $('.cannon');
     var canvas = document.getElementById('main-container');
 
@@ -17,7 +17,7 @@ $(function () {
     var degrees     = 0;
     var gravity     = 9.81;
 
-    //TODO: Bugs....bugs everywhere. Fix glitchy animation (Matt).
+    //TODO: Bugs everywhere. Fix glitchy animation (Matt).
     function fire_cannon(fire_event) {
         main_container.append('<div class="cannon-ball"></div>');
         var time = 0;
@@ -39,7 +39,8 @@ $(function () {
                 $(this).css({ left: x, top: 1000 - y });
             }
         });
-        cannon_ball.clearQueue();
+        cannon_ball.clearQueue();   // This needs to be called somewhere else to clear the animation queue
+                                    // (Maybe detect ball collision with edge of screen, then clear queue?
         main_container.remove('.cannon-ball');
     }
 
