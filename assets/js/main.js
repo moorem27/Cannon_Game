@@ -17,34 +17,45 @@ $(function () {
     var center_x    = 0;
     var center_y    = 0;
     var v_0         = 150;  // arbitrary initial velocity
-    var theta       = 100;  // radians
+    var theta       = 0;    // radians
     var degrees     = 0;
     var gravity     = 9.81;
 
-    //TODO: Bugs everywhere. Fix glitchy animation (Matt).
     function fire_cannon(fire_event) {
-        main_container.append('<div class="cannon-ball"></div>');
-        var time = 0;
         var cannon_ball = $('.cannon-ball');
-        var v_x0 = v_0 * Math.cos(theta*-1); //Should theta have to be negated here?
-        var v_y0 = v_0 * Math.sin(theta*-1); //Or here?
+        var div = $("<div />");
+        div.attr({class: 'cannon-ball'});
 
+        var event_x     = fire_event.pageX;
+        var event_y     = $(window).height() - fire_event.pageY;
+        var radians     = Math.atan2( event_y, event_x );
+        var time        = 0;
+        var v_x0        = v_0 * Math.cos(radians);
+        var v_y0        = v_0 * Math.sin(radians);
+        var x           = 0;
+        var y           = $(window).height();
+
+        div.css({top: y, left: x}); // TODO: Why am I having to hide a random div behind the cannon?
+        main_container.append(div);
+
+        // TODO: Use Velocity.js for animation?
         cannon_ball.css({ fontSize: 0 }).animate({
             fontSize: 45
         },{
             duration: 5000,
             easing: "swing",
-            step: function(t, fx){
-                time = time + .10;
-                var x = (v_x0*time);
-                var y = (((v_y0*time)) - (.5*gravity*(time*time)) );
-                console.log(x + ' ' + y);
-                $(this).css({ left: x, top: 1000 - y });
+            step: function(){
+                time = time + .15;
+                x = (v_x0*time);
+                y = (((v_y0*time)) - (.5*gravity*(Math.pow(time, 2))));
+                // Forgive the magic number
+                $(this).css({ left: x - 100, top: $(window).height() - y });
+            },
+            complete: function() {
+                $(this).remove();
             }
         });
-        cannon_ball.clearQueue();   // This needs to be called somewhere else to clear the animation queue
-                                    // (Maybe detect ball collision with edge of screen, then clear queue?
-        main_container.remove('.cannon-ball');
+        main_container.removeClass(div);
     }
 
     // returns theta in radians
