@@ -8,7 +8,6 @@ $(function () {
     // FIXME: The cannon should rotate around the center of the wheel
 
     // set cannon's starting position and pivot point
-    cannon.css({'transform-origin': 'left'});
     cannon.css({'transform' : 'rotate(-45deg)'});
     cannon.css({'position': 'absolute',
                         'left': '0',
