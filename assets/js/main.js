@@ -20,35 +20,28 @@ $(function () {
     var theta       = 0;  // radians
     var degrees     = 0;
     var gravity     = 9.81;
+    var cannon_up   = 0;
 
     //TODO: Bugs everywhere. Fix glitchy animation (Matt).
     function fire_cannon(fire_event) {
-
-        var time = 0;
         var cannon_ball = $('.cannon-ball');
-        var v_x0 = v_0 * Math.cos(theta); //Should theta have to be negated here?
-        var v_y0 = v_0 * Math.sin(theta); //Or here?
-        var x = Math.cos(theta)*300;
-        var y = 1000 - Math.sin(theta)*300;
+        var event_x         = fire_event.pageX;
+        var event_y         = $(window).height() - fire_event.pageY;
+        var real_theta      = Math.atan2( event_y, event_x );
+        var real_degrees    = real_theta * (180/Math.PI);
+        console.log(real_degrees );
+        var time = 0;
+        var v_x0 = v_0 * Math.cos(real_theta);
+        var v_y0 = v_0 * Math.sin(real_theta);
+        var x = Math.cos(real_theta) * 200;
+        var y = $(window).height() - (Math.sin(real_theta)*300);
 
-        main_container.append('<div class="cannon-ball"></div>');
-        cannon_ball.velocity({
-            left: x,
-            top: 1000 - y,
-            tween: 1000,
-            duration: 10000
-        }, {
-            progress: function( x, y, time ) {
-                time = time + .1;
-                x = v_x0*time;
-                y = (((v_y0*time)) - (.5*gravity*(Math.pow(time,2))));
-                console.log(time + ' ' + x + ' ' + ( 1000 - y ) );
-            },
-            complete: function() {
-               $(this).remove();
-            }
+        cannon_ball.css({
+            'position': 'absolute',
+            'left': x,
+            'top': y
         });
-
+        main_container.append('<div class="cannon-ball"></div>');
     }
 
     // returns theta in radians
