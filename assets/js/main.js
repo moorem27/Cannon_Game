@@ -16,35 +16,39 @@ $(function () {
 
     var center_x    = 0;
     var center_y    = 0;
-    var v_0         = 150;  // arbitrary initial velocity
-    var theta       = 100;  // radians
+    var v_0         = 5;  // arbitrary initial velocity
+    var theta       = 0;  // radians
     var degrees     = 0;
     var gravity     = 9.81;
 
     //TODO: Bugs everywhere. Fix glitchy animation (Matt).
     function fire_cannon(fire_event) {
-        main_container.append('<div class="cannon-ball"></div>');
+
         var time = 0;
         var cannon_ball = $('.cannon-ball');
-        var v_x0 = v_0 * Math.cos(theta*-1); //Should theta have to be negated here?
-        var v_y0 = v_0 * Math.sin(theta*-1); //Or here?
+        var v_x0 = v_0 * Math.cos(theta); //Should theta have to be negated here?
+        var v_y0 = v_0 * Math.sin(theta); //Or here?
+        var x = Math.cos(theta)*300;
+        var y = 1000 - Math.sin(theta)*300;
 
-        cannon_ball.css({ fontSize: 0 }).animate({
-            fontSize: 45
-        },{
-            duration: 5000,
-            easing: "swing",
-            step: function(t, fx){
-                time = time + .10;
-                var x = (v_x0*time);
-                var y = (((v_y0*time)) - (.5*gravity*(time*time)) );
-                console.log(x + ' ' + y);
-                $(this).css({ left: x, top: 1000 - y });
+        main_container.append('<div class="cannon-ball"></div>');
+        cannon_ball.velocity({
+            left: x,
+            top: 1000 - y,
+            tween: 1000,
+            duration: 10000
+        }, {
+            progress: function( x, y, time ) {
+                time = time + .1;
+                x = v_x0*time;
+                y = (((v_y0*time)) - (.5*gravity*(Math.pow(time,2))));
+                console.log(time + ' ' + x + ' ' + ( 1000 - y ) );
+            },
+            complete: function() {
+               $(this).remove();
             }
         });
-        cannon_ball.clearQueue();   // This needs to be called somewhere else to clear the animation queue
-                                    // (Maybe detect ball collision with edge of screen, then clear queue?
-        main_container.remove('.cannon-ball');
+
     }
 
     // returns theta in radians
