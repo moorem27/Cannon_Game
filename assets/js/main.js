@@ -5,7 +5,7 @@ $(function () {
     var cannon = $('.cannon');
 
     // FIXME: should only show elements after loading is finished
-    // FIXME: The cannon should rotate around the center of the wheel
+    // FIXME: Sync cannon barrel and cannon ball initial starting point
 
     // set cannon's starting position and pivot point
     cannon.css({'transform' : 'rotate(-45deg)'});
