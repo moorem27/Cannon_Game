@@ -16,7 +16,7 @@ $(function () {
 
     var center_x    = 0;
     var center_y    = 0;
-    var v_0         = 5;  // arbitrary initial velocity
+    var v_0         = 100;  // arbitrary initial velocity
     var theta       = 0;  // radians
     var degrees     = 0;
     var gravity     = 9.81;
@@ -25,6 +25,7 @@ $(function () {
     //TODO: Bugs everywhere. Fix glitchy animation (Matt).
     function fire_cannon(fire_event) {
         var cannon_ball = $('.cannon-ball');
+        // main_container.append('<div class="cannon-ball"></div>');
         var event_x         = fire_event.pageX;
         var event_y         = $(window).height() - fire_event.pageY;
         var real_theta      = Math.atan2( event_y, event_x );
@@ -41,7 +42,23 @@ $(function () {
             'left': x,
             'top': y
         });
-        main_container.append('<div class="cannon-ball"></div>');
+        // cannon_ball.show();
+        cannon_ball.css({ fontSize: 0 }).animate({
+            fontSize: 45
+        },{
+            duration: 5000,
+            easing: "swing",
+            step: function(t, fx){
+                time = time + .10;
+                x = (v_x0*time);
+                y = (((v_y0*time)) - (.5*gravity*(time*time)) );
+                console.log(x + ' ' + y);
+                $(this).css({ left: x, top: 1000 - y });
+            },
+            complete: function() {
+                cannon_ball.remove();
+            }
+        });
     }
 
     // returns theta in radians
