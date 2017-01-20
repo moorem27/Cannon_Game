@@ -5,6 +5,7 @@ $(function () {
     var cannon = $('.cannon');
 
     // FIXME: should only show elements after loading is finished
+    // FIXME: The cannon should rotate around the center of the wheel
 
     // set cannon's starting position and pivot point
     cannon.css({'transform-origin': 'left'});
@@ -16,7 +17,7 @@ $(function () {
 
     var center_x    = 0;
     var center_y    = 0;
-    var v_0         = 160;  // arbitrary initial velocity
+    var v_0         = 200;  // arbitrary initial velocity
     var theta       = 0;    // radians
     var degrees     = 0;
     var gravity     = 9.81;
@@ -48,7 +49,7 @@ $(function () {
                 time = time + .15;
                 x = (v_x0*time);
                 y = (((v_y0*time)) - (.5*gravity*(Math.pow(time, 2))));
-                // Forgive the magic number
+                // Forgive the magic number for the offset
                 $(this).css({ left: x - 100, top: $(window).height() - y });
             },
             complete: function() {
@@ -103,6 +104,6 @@ $(function () {
         }
     }, false);
 
-    document.addEventListener('mouseup', fire_cannon );
+    document.addEventListener('click', fire_cannon );
     $.mobile.loading().hide();
 }); // end of document ready
