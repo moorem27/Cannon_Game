@@ -16,12 +16,11 @@ $(function () {
 
     var center_x    = 0;
     var center_y    = 0;
-    var v_0         = 140;  // arbitrary initial velocity
+    var v_0         = 150;  // arbitrary initial velocity
     var theta       = 0;    // radians
     var degrees     = 0;
     var gravity     = 9.81;
 
-    //TODO: Bugs everywhere. Fix glitchy animation (Matt).
     function fire_cannon(fire_event) {
         var cannon_ball = $('.cannon-ball');
         var div = $("<div />");
@@ -39,17 +38,18 @@ $(function () {
         div.css({top: y, left: x}); // TODO: Why am I having to hide a random div behind the cannon?
         main_container.append(div);
 
-        // TODO: Use Velocity.js for animation
+        // TODO: Use Velocity.js for animation?
         cannon_ball.css({ fontSize: 0 }).animate({
             fontSize: 45
         },{
             duration: 5000,
             easing: "swing",
             step: function(){
-                time = time + .2;
+                time = time + .15;
                 x = (v_x0*time);
                 y = (((v_y0*time)) - (.5*gravity*(Math.pow(time, 2))));
-                $(this).css({ left: x, top: 1000 - y });
+                // Forgive the magic number
+                $(this).css({ left: x - 100, top: $(window).height() - y });
             },
             complete: function() {
                 $(this).remove();
