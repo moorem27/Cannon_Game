@@ -16,7 +16,7 @@ $(function () {
 
     var center_x    = 0;
     var center_y    = 0;
-    var v_0         = 150;  // arbitrary initial velocity
+    var v_0         = 160;  // arbitrary initial velocity
     var theta       = 0;    // radians
     var degrees     = 0;
     var gravity     = 9.81;
@@ -86,7 +86,7 @@ $(function () {
     }
 
     // only moves the box when the mouse is held down
-    $('html').mousedown(function () {
+    $('html').mousemove(function () {
         $(document).mousemove(mousemoved);
     }).mouseup(function () {
         $(document).unbind();
