@@ -16,7 +16,7 @@ $(function () {
 
     var center_x    = 0;
     var center_y    = 0;
-    var v_0         = 100;  // arbitrary initial velocity
+    var v_0         = 150;  // arbitrary initial velocity
     var theta       = 0;  // radians
     var degrees     = 0;
     var gravity     = 9.81;
@@ -25,24 +25,16 @@ $(function () {
     //TODO: Bugs everywhere. Fix glitchy animation (Matt).
     function fire_cannon(fire_event) {
         var cannon_ball = $('.cannon-ball');
-        // main_container.append('<div class="cannon-ball"></div>');
+        main_container.append('<div class="cannon-ball"></div>');
         var event_x         = fire_event.pageX;
         var event_y         = $(window).height() - fire_event.pageY;
-        var real_theta      = Math.atan2( event_y, event_x );
-        var real_degrees    = real_theta * (180/Math.PI);
-        console.log(real_degrees );
+        var radians      = Math.atan2( event_y, event_x );
         var time = 0;
-        var v_x0 = v_0 * Math.cos(real_theta);
-        var v_y0 = v_0 * Math.sin(real_theta);
-        var x = Math.cos(real_theta) * 200;
-        var y = $(window).height() - (Math.sin(real_theta)*300);
+        var v_x0 = v_0 * Math.cos(radians);
+        var v_y0 = v_0 * Math.sin(radians);
+        var x = Math.cos(radians) * 200;
+        var y = $(window).height() - (Math.sin(radians)*300);
 
-        cannon_ball.css({
-            'position': 'absolute',
-            'left': x,
-            'top': y
-        });
-        // cannon_ball.show();
         cannon_ball.css({ fontSize: 0 }).animate({
             fontSize: 45
         },{
