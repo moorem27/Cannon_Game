@@ -22,7 +22,6 @@ $(function () {
     var gravity     = 9.81;
 
     function fire_cannon(fire_event) {
-        var cannon_ball = $('.cannon-ball');
         var div = $("<div />");
         div.attr({class: 'cannon-ball'});
 
@@ -38,18 +37,18 @@ $(function () {
         div.css({top: y, left: x}); // TODO: Why am I having to hide a random div behind the cannon?
         main_container.append(div);
 
-        // TODO: Use Velocity.js for animation?
-        cannon_ball.css({ fontSize: 0 }).animate({
-            fontSize: 45
+        div.velocity({
+            fontSize: 0
         },{
             duration: 5000,
             easing: "swing",
-            step: function(){
+            progress: function(){
                 time = time + .15;
                 x = (v_x0*time);
                 y = (((v_y0*time)) - (.5*gravity*(Math.pow(time, 2))));
                 // Forgive the magic number for the offset
                 $(this).css({ left: x - 100, top: $(window).height() - y });
+                $(this).show();
             },
             complete: function() {
                 $(this).remove();
