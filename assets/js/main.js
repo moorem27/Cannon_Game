@@ -41,7 +41,7 @@ $(function () {
             fontSize: 0
         },{
             duration: 5000,
-            easing: "swing",
+            easing: "linear",
             progress: function(){
                 time = time + .15;
                 x = (v_x0*time);
